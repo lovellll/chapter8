@@ -5,46 +5,37 @@
 #include <iostream>
 #include <cassert>
 #include <string>
+#include <cstdint>
 
-class Ball
+class RGBA
 {
-	std::string m_color;
-	double m_radius;
+	std::uint8_t m_red;
+	std::uint8_t m_green;
+	std::uint8_t m_blue;
+	std::uint8_t m_alapha;
 
 public:
-	Ball(const std::string &color="black", double radius=20.0)
+	RGBA(std::uint8_t red=0,std::uint8_t green=0,std::uint8_t blue=0,std::uint8_t alapha=255):
+		m_red(red),m_green(green),m_blue(blue),m_alapha(alapha)
 	{
-		m_color = color;
-		m_radius = radius;
-
-	}
-
-	Ball(double radius)
-	{
-		m_color = "black";
-		m_radius = radius;
 
 	}
 
 	void print()
 	{
-		std::cout << "color: " << m_color << ", radius: " << m_radius << "\n";
+		std::cout << "r=" << static_cast<int>(m_red) << " g=" << static_cast<int>(m_green) <<
+			" b=" << static_cast<int>(m_blue) << " a=" << static_cast<int>(m_alapha)<<"\n";
 	}
 };
 
 int main()
 {
-	Ball def;
+	RGBA teal(0, 127, 127);
+	teal.print();
+	
+	RGBA def;
 	def.print();
 
-	Ball blue("blue");
-	blue.print();
-
-	Ball twenty(20.0);
-	twenty.print();
-
-	Ball blueTwenty("blue", 20.0);
-	blueTwenty.print();
 
 	return 0;
 
