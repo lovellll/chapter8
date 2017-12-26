@@ -3,55 +3,76 @@
 
 #include "stdafx.h"
 #include <iostream>
+#include <cassert>
 
-class Point3d
+class Stack
 {
-	double m_x;
-	double m_y;
-	double m_z;
+	int stack[10];
+	int length{ 0 };
 public:
-	void setValues(double x, double y, double z)
+	void reset()
 	{
-		m_x = x;
-		m_y = y;
-		m_z = z;
-
+		for (auto &ref : stack)
+			ref = 0;
+		length = 0;
 	}
-	void print()
-	{
-		std::cout << "<" << m_x << "," << m_y << "," << m_z << ">\n";
 
-	}
-	bool isEqual(const Point3d &d)
+	bool push(int i)
 	{
-		if (m_x == d.m_x && m_y == d.m_y && m_z == d.m_z)
+		if (length < 10)
+		{
+			stack[length] = i;
+			++length;
 			return true;
+		}
 		else
 			return false;
+	}
+
+	int pop()
+	{
+		assert(length > 0 && "length is less than 0");
+		return stack[--length];
+	}
+
+	void print()
+	{
+		std::cout << "( ";
+		for (int i = 0; i < length; ++i)
+		{
+			std::cout << stack[i] << " ";
+		}
+		std::cout << ")\n";
 	}
 };
 
 
 int main()
 {
-	Point3d point1;
-	point1.setValues(1.0, 2.0, 3.0);
 
-	Point3d point2;
-	point2.setValues(1.0, 2.0, 3.0);
+	Stack stack;
+	stack.reset();
 
-	if (point1.isEqual(point2))
-		std::cout << "point1 and point2 are equal\n";
-	else
-		std::cout << "point1 and point2 are not equal\n";
+	//stack.pop();  //test assertion
 
-	Point3d point3;
-	point3.setValues(3.0, 4.0, 5.0);
+	stack.print();
 
-	if (point1.isEqual(point3))
-		std::cout << "point1 and point3 are equal\n";
-	else
-		std::cout << "point1 and point3 are not equal\n";
+	
+	stack.push(5);
+	stack.push(3);
+	stack.push(8);
+	stack.print();
+
+	stack.pop();
+	stack.print();
+
+	stack.pop();
+	stack.pop();
+
+	stack.print();
+	
+
+
 
 	return 0;
 }
