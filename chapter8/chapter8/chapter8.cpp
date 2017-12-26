@@ -4,76 +4,49 @@
 #include "stdafx.h"
 #include <iostream>
 #include <cassert>
+#include <string>
 
-class Stack
+class Ball
 {
-	int stack[10];
-	int length{ 0 };
+	std::string m_color;
+	double m_radius;
+
 public:
-	void reset()
+	Ball(const std::string &color="black", double radius=20.0)
 	{
-		for (auto &ref : stack)
-			ref = 0;
-		length = 0;
+		m_color = color;
+		m_radius = radius;
+
 	}
 
-	bool push(int i)
+	Ball(double radius)
 	{
-		if (length < 10)
-		{
-			stack[length] = i;
-			++length;
-			return true;
-		}
-		else
-			return false;
-	}
+		m_color = "black";
+		m_radius = radius;
 
-	int pop()
-	{
-		assert(length > 0 && "length is less than 0");
-		return stack[--length];
 	}
 
 	void print()
 	{
-		std::cout << "( ";
-		for (int i = 0; i < length; ++i)
-		{
-			std::cout << stack[i] << " ";
-		}
-		std::cout << ")\n";
+		std::cout << "color: " << m_color << ", radius: " << m_radius << "\n";
 	}
 };
 
-
 int main()
 {
+	Ball def;
+	def.print();
 
-	Stack stack;
-	stack.reset();
+	Ball blue("blue");
+	blue.print();
 
-	//stack.pop();  //test assertion
+	Ball twenty(20.0);
+	twenty.print();
 
-	stack.print();
-
-	
-	stack.push(5);
-	stack.push(3);
-	stack.push(8);
-	stack.print();
-
-	stack.pop();
-	stack.print();
-
-	stack.pop();
-	stack.pop();
-
-	stack.print();
-	
-
-
+	Ball blueTwenty("blue", 20.0);
+	blueTwenty.print();
 
 	return 0;
+
 }
 
